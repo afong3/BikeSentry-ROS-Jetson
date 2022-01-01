@@ -9,4 +9,7 @@ This repo should be placed directly into the catkin_ws/src folder of your local 
 ### /src
 Use /src to store all the code for nodes. 
 
+### /scripts
+Use /scripts to store all the libraries responsible for handling Audio, Camera, & motor instructions
+
 
