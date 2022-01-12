@@ -3,7 +3,7 @@
 # Refer to StopBikeTheft/Designs/Ros Design/MotorManager
 
 
-class MotorManager():
+class MotorManager:
 	def __init__(self, motor_step_count):
 		self.step_count = motor_step_count
 
