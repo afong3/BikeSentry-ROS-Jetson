@@ -10,7 +10,7 @@ def calc_image_center(dim_x: float, dim_y:float):
 	Returns: void
 	"""
 	
-	next
+	pass
 
 def create_motor_instructions_pan(pixels_x):
 	"""
@@ -19,7 +19,7 @@ def create_motor_instructions_pan(pixels_x):
 	"""
 	pan_instruction = enum("left","right", "none")
 
-	next
+	pass
 
 def create_motor_instructions_tilt(pixels_y):
 	"""
@@ -27,4 +27,4 @@ def create_motor_instructions_tilt(pixels_y):
 	Returns: void 
 	"""
 
-	next
+	pass
