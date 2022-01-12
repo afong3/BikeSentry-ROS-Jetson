@@ -9,7 +9,8 @@ class AudioManager:
 
 		"""
 		self.sample_rate = sample_rate
-
+		
+		pass
 	def process_audio(self, raw_mic_data)
 		"""
 		raw_mic_data must be entered as a .wav file without lossy compression
@@ -17,4 +18,4 @@ class AudioManager:
 		"""
 		#TODO: insert all the process_audio things that are necessary 
 		#TODO: make all the processing substantially faster because damn it's slow right now 
-		next 
+		pass
