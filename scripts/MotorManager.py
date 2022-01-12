@@ -14,9 +14,9 @@ class MotorManager():
 			rotate_counter_clockwise()
 
 	def rotate_clockwise(self):
-		next
+		pass
 
 	def rotate_counter_clockwise(self):
-		next 
+		pass 
 
 
