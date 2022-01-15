@@ -1,13 +1,14 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>SentryContents</name>
+  <name>bike_sentry</name>
   <version>0.0.0</version>
-  <description>The SentryContents package</description>
+  <description>The bike_sentry ROS package will be deployed on a Jetson Nano board for the IGEN 330 project. TODO: rest</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <!-- Example:  -->
-  <!-- <maintainer email="jane.doe@example.com">Jane Doe</maintainer> -->
-  <maintainer email="adam@todo.todo">adam</maintainer>
+  <!-- <maintainer email="jagnne.doe@example.com">Jane Doe</maintainer> -->
+  <maintainer email="adamfong888@gmail.com">adam</maintainer>
+  <maintainer email="erikd234@gmail.com">erik</maintainer>
 
 
   <!-- One license tag required, multiple allowed, one license per tag -->
