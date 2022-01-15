@@ -27,11 +27,13 @@ class CameraDataManager:
 		Description: Creates the pan motor instruction
 		Returns: "left" or "right"
 		"""
-		left_instruction = "left"
-		left_instruction = "right"
-		none_instruciton = "none"
+		if pixels_x < self.center_y:
+			tilt_instruction = "<-"
+		elif pixels_x > self.center_y:
+			tilt_instruction = "->"
+		
+		return tilt_instruction
 
-		pass
 
 	def create_motor_instructions_tilt(self, pixels_y):
 		"""
