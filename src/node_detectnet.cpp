@@ -24,7 +24,7 @@
 #include "image_converter.h"
 
 #include <jetson-inference/detectNet.h>
-#include <std_msgs/String.h>
+#include <std_msgs/Float32.h>
 
 #include <unordered_map>
 
@@ -41,8 +41,8 @@ Publisher<sensor_msgs::Image> overlay_pub = NULL;
 Publisher<vision_msgs::VisionInfo> info_pub = NULL;
  
 // for person in frame center point
-ros::Publisher y_center_pub = NULL;
-ros::Publisher x_center_pub = NULL;
+Publisher<std_msgs::Float32> y_center_pub = NULL;
+Publisher<std_msgs::Float32> x_center_pub = NULL;
 
 vision_msgs::VisionInfo info_msg;
 
