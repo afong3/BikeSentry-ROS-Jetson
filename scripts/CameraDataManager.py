@@ -3,28 +3,35 @@
 # Python2.7
 # Refer to Confluence directory: StopBikeTheft/Designs/ROS Design/CameraDataManager
 
-def calc_image_center(dim_x: float, dim_y:float):
-	"""
-	Description: Finds center x & y pixels of the defined image size 
-		     stores the image center as properties.
-	Returns: void
-	"""
-	
-	pass
+class CameraDataManager:
 
-def create_motor_instructions_pan(pixels_x):
-	"""
-	Description: Creates the pan motor instruction
-	Returns: void
-	"""
-	pan_instruction = enum("left","right", "none")
+	def __init__(self, motor_step_count):
+		self.step_count = motor_step_count
 
-	pass
+	def calc_image_center(self, dim_x: float, dim_y:float):
+		"""
+		Description: Finds center x & y pixels of the defined image size 
+				stores the image center as properties.
+		Returns: void
+		"""
+		
+		pass
 
-def create_motor_instructions_tilt(pixels_y):
-	"""
-	Description: Creates the tilt motor instructions
-	Returns: void 
-	"""
+	def create_motor_instructions_pan(self, pixels_x):
+		"""
+		Description: Creates the pan motor instruction
+		Returns: void
+		"""
+		left_instruction = "left"
+		left_instruction = "right"
+		none_instruciton = "none"
 
-	pass
+		pass
+
+	def create_motor_instructions_tilt(self, pixels_y):
+		"""
+		Description: Creates the tilt motor instructions
+		Returns: void 
+		"""
+
+		pass
