@@ -28,9 +28,9 @@ class CameraDataManager:
 		Returns: "left" or "right"
 		"""
 		if pixels_x < self.center_y:
-			tilt_instruction = "<-"
+			tilt_instruction = "right"
 		elif pixels_x > self.center_y:
-			tilt_instruction = "->"
+			tilt_instruction = "left"
 		
 		return tilt_instruction
 
