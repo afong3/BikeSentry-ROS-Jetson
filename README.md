@@ -12,4 +12,8 @@ Use /src to store all the code for nodes.
 ### /scripts
 Use /scripts to store all the libraries responsible for handling Audio, Camera, & motor instructions
 
+### To Run the Object Detection from ros_deep_learning package
+1. run 'roscore' in terminal
+2. open a new terminal tab and run the command below
+$roslaunch ros_deep_learning detectnet.ros1.launch input:=v4l2:///dev/video0 output:=display://0
 
