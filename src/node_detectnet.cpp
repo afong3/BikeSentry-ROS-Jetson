@@ -41,8 +41,8 @@ Publisher<sensor_msgs::Image> overlay_pub = NULL;
 Publisher<vision_msgs::VisionInfo> info_pub = NULL;
  
 // for person in frame center point
-Publisher<std_msgs::Float32> y_center_pub = NULL;
-Publisher<std_msgs::Float32> x_center_pub = NULL;
+ros::Publisher y_center_pub;
+ros::Publisher x_center_pub;
 
 vision_msgs::VisionInfo info_msg;
 

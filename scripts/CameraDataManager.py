@@ -9,21 +9,23 @@ class CameraDataManager:
 		
 		self.width = image_width
 		self.height = image_height
-		self.center = self.calc_image_center(image_width, image_height)
+		self.center_x, self.center_y = self.calc_image_center(image_width, image_height)
 
 	def calc_image_center(self, dim_x: float, dim_y:float):
 		"""
 		Description: Finds center x & y pixels of the defined image size 
 				stores the image center as properties.
-		Returns: void
+		Returns: (x,y)
 		"""
-		
-		pass
+		center_x = self.width / 2
+		center_y = self.height / 2
+
+		return (center_x, center_y)
 
 	def create_motor_instructions_pan(self, pixels_x):
 		"""
 		Description: Creates the pan motor instruction
-		Returns: void
+		Returns: "left" or "right"
 		"""
 		left_instruction = "left"
 		left_instruction = "right"
@@ -34,7 +36,11 @@ class CameraDataManager:
 	def create_motor_instructions_tilt(self, pixels_y):
 		"""
 		Description: Creates the tilt motor instructions
-		Returns: void 
+		Returns: "up" or "down" 
 		"""
-
-		pass
+		if pixels_y < self.center_y:
+			tilt_instruction = "down"
+		elif pixels_y > self.center_y:
+			tilt_instruction = "up"
+		
+		return tilt_instruction
