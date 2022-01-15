@@ -9,11 +9,11 @@ from std_msgs.msg import Float32
 import imp
 import os
 
-curr_dir = os.path.abspath(os.getcwd()) #'/home/sentry/catkin_ws/src/BikeSentryROS/src/../
+curr_dir = os.path.abspath(os.getcwd()) #'/home/sentry/catkin_ws/src/BikeSentryROS/src
 rospy.loginfo(curr_dir)
-repositry_root = curr_dir.split("/src",1)[0]
+repositry_root = curr_dir.split("/BikeSentryROS",1)[0]
 rospy.loginfo(repositry_root)
-lib_path = repositry_root + "/scripts"
+lib_path = repositry_root + "/BikeSentryROS/scripts"
 rospy.loginfo(lib_path)
 
 CDM = imp.load_source('module.name', lib_path + '/CameraDataManager.py')
