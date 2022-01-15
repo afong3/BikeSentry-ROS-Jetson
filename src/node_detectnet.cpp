@@ -24,6 +24,7 @@
 #include "image_converter.h"
 
 #include <jetson-inference/detectNet.h>
+#include <std_msgs/String.h>
 
 #include <unordered_map>
 
@@ -38,6 +39,10 @@ imageConverter* overlay_cvt = NULL;
 Publisher<vision_msgs::Detection2DArray> detection_pub = NULL;
 Publisher<sensor_msgs::Image> overlay_pub = NULL;
 Publisher<vision_msgs::VisionInfo> info_pub = NULL;
+ 
+// for person in frame center point
+ros::Publisher y_center_pub = NULL;
+ros::Publisher x_center_pub = NULL;
 
 vision_msgs::VisionInfo info_msg;
 
@@ -138,7 +143,16 @@ void img_callback( const sensor_msgs::ImageConstPtr input )
 			std::string c = net->GetClassDesc(det->ClassID);
 			
 			if (c.compare("person") == 0) // classified object is a person
-			{
+			{	
+				std_msgs::Float32 x_center;
+				std_msgs::Float32 y_center;
+
+				x_center.data = cx;
+				y_center.data = cy;
+
+				x_center_pub.publish(x_center);
+				y_center_pub.publish(y_center);
+
 				ROS_INFO("PERSON CENTER AT (%f, %f)", cx, cy);	
 			}
 			
@@ -175,6 +189,12 @@ int main(int argc, char **argv)
 	 * create node instance
 	 */
 	ROS_CREATE_NODE("detectnet");
+
+	/*
+	* Tells ROS we want to publish two topic names for center x and center y of a given image.
+	*/
+	y_center_pub = nh.advertise<std_msgs::Float32>("y_center", 1000);
+	x_center_pub = nh.advertise<std_msgs::Float32>("x_center", 1000);
 
 	/*
 	 * retrieve parameters
