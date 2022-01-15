@@ -4,9 +4,12 @@
 # Refer to Confluence directory: StopBikeTheft/Designs/ROS Design/CameraDataManager
 
 class CameraDataManager:
-
-	def __init__(self, motor_step_count):
-		self.step_count = motor_step_count
+	
+	def __init__(self, image_width, image_height):
+		
+		self.width = image_width
+		self.height = image_height
+		self.center = self.calc_image_center(image_width, image_height)
 
 	def calc_image_center(self, dim_x: float, dim_y:float):
 		"""
