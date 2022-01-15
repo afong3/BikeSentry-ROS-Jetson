@@ -1,13 +1,13 @@
 <launch>
 
 	<!-- VIDEO SOURCE -->
-	<arg name="input" default="csi://0"/>
+	<arg name="input" default="v4l2:///dev/video0"/>
 	<arg name="input_width" default="0"/>
 	<arg name="input_height" default="0"/>
 	<arg name="input_codec" default="unknown"/>
 	<arg name="input_loop" default="0"/>
 
-	<include file="$(find bike_sentry)/launch/video_source.ros1.launch">
+	<include file="$(find bike_sentry)/launch/video_source.launch">
 		<arg name="input" value="$(arg input)"/>
 		<arg name="input_width" value="$(arg input_width)"/>
 		<arg name="input_height" value="$(arg input_height)"/>
@@ -46,7 +46,7 @@
 	<arg name="output_codec" default="unknown"/>
 	<arg name="output_bitrate" default="0"/>
 
-	<include file="$(find bike_sentry)/launch/video_output.ros1.launch">
+	<include file="$(find bike_sentry)/launch/video_output.launch">
 		<arg name="topic" value="/detectnet/overlay"/>
 		<arg name="output" value="$(arg output)"/>
 		<arg name="output_codec" value="$(arg output_codec)"/>
