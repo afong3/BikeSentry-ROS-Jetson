@@ -9,30 +9,30 @@ class MotorManager:
 
 	def actuate(self, instruction):
 		if instruction == "right" or instruction == "down": # Depends on motor orientation
-			self.rotate_clockwise(instruction)
+			return self.rotate_clockwise(instruction)
 		elif instruction == "left" or instruction == "up":
-			self.rotate_counter_clockwise(instruction)
+			return self.rotate_counter_clockwise(instruction)
 		else:
-			print("no luck")
+			return("no luck")
 
 	def rotate_clockwise(self, instruction):
 		if instruction == "up":
-			print("^")
+			return("^")
 		elif instruction == "down":
-			print("down")
+			return("down")
 		elif instruction == "left": 
-			print("<-")
+			return("<-")
 		elif instruction == "right":
-			print("->")
+			return("->")
 
 	def rotate_counter_clockwise(self, instruction):
 		if instruction == "up":
-			print("^")
+			return("^")
 		elif instruction == "down":
-			print("down")
+			return("down")
 		elif instruction == "left": 
-			print("<-")
+			return("<-")
 		elif instruction == "right":
-			print("->")
+			return("->")
 
 

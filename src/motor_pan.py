@@ -22,11 +22,10 @@ def listener_x():
 def pan_callback(pixels_x):
 
     x = int(pixels_x.data)
-    rospy.loginfo("x center: {}".format(x))
     instr = CameraDataManager.create_motor_instructions_pan(x) 
 
-    Motor.actuate(instr)
-
+    movement = Motor.actuate(instr)
+    rospy.loginfo("x_center: {}   direction:{}".format(x, movement))
 
 def main():
     rospy.init_node("motor_pan")

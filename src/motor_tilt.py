@@ -26,12 +26,11 @@ def listener_y():
     
 def tilt_callback(pixels_y):
     y = int(pixels_y.data)
-    rospy.loginfo("y_center: {}".format(y))
     
     instr = CameraDataManager.create_motor_instructions_tilt(y) 
 
-    Motor.actuate(instr)
-
+    movement = Motor.actuate(instr)
+    rospy.loginfo("y_center: {}   direction:{}".format(y, movement))
 
 def main():
     rospy.init_node("motor_tilt")
