@@ -8,9 +8,9 @@ class MotorManager:
 		self.step_count = motor_step_count
 
 	def actuate(self, instruction):
-		if(instruction == "right" | instruction == "down"): # Depends on motor orientation
+		if instruction == "right" or instruction == "down": # Depends on motor orientation
 			self.rotate_clockwise(instruction)
-		elif(instruction == "left" | instruction == "up"):
+		elif instruction == "left" or instruction == "up":
 			self.rotate_counter_clockwise(instruction)
 		else:
 			print("no luck")
@@ -21,9 +21,18 @@ class MotorManager:
 		elif instruction == "down":
 			print("down")
 		elif instruction == "left": 
-			
+			print("<-")
+		elif instruction == "right":
+			print("->")
 
 	def rotate_counter_clockwise(self, instruction):
-		print("->")
+		if instruction == "up":
+			print("^")
+		elif instruction == "down":
+			print("down")
+		elif instruction == "left": 
+			print("<-")
+		elif instruction == "right":
+			print("->")
 
 

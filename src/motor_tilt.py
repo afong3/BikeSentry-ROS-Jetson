@@ -10,18 +10,18 @@ import imp
 
 STEPS = 0
 
-CDM = imp.load_source('module.name', '../scripts/CameraDataManager.py')
-MM = imp.load_source('module.name', '../scripts/MotorManager.py')
+CDM = imp.load_source('module.name', '/home/sentry/catkin_ws/src/BikeSentryROS/scripts/CameraDataManager.py') # TODO: make this relative
+MM = imp.load_source('module.name', '/home/sentry/catkin_ws/src/BikeSentryROS/scripts/MotorManager.py')
 
 CameraDataManager = CDM.CameraDataManager(1280, 720)
 Motor = MM.MotorManager(STEPS)
 
 def listener_y():
     rospy.Subscriber("y_center", Float32, tilt_callback)
-
+    
 def tilt_callback(pixels_y):
-
     y = int(pixels_y.data)
+    rospy.loginfo("y_center: {}".format(y))
     
     instr = CameraDataManager.create_motor_instructions_tilt(y) 
 

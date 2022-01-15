@@ -11,7 +11,7 @@ class CameraDataManager:
 		self.height = image_height
 		self.center_x, self.center_y = self.calc_image_center(image_width, image_height)
 
-	def calc_image_center(self, dim_x: float, dim_y:float):
+	def calc_image_center(self, dim_x, dim_y):
 		"""
 		Description: Finds center x & y pixels of the defined image size 
 				stores the image center as properties.
@@ -41,8 +41,8 @@ class CameraDataManager:
 		Returns: "up" or "down" 
 		"""
 		if pixels_y < self.center_y:
-			tilt_instruction = "down"
-		elif pixels_y > self.center_y:
 			tilt_instruction = "up"
+		elif pixels_y > self.center_y:
+			tilt_instruction = "down"
 		
 		return tilt_instruction
