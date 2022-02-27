@@ -1,8 +1,3 @@
-/* 
- * rosserial Subscriber Example
- * Blinks an LED on callback
- */
-
 #include <ros.h>
 #include <std_msgs/Empty.h>
 #include <SentryMotorController.h>
