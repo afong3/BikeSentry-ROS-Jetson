@@ -27,10 +27,10 @@ class CameraDataManager:
 		Description: Creates the pan motor instruction
 		Returns: "left" or "right"
 		"""
-		if pixels_x < self.center_y:
-			tilt_instruction = "right"
-		elif pixels_x > self.center_y:
+		if pixels_x < self.center_x:
 			tilt_instruction = "left"
+		elif pixels_x > self.center_x:
+			tilt_instruction = "right"
 		
 		return tilt_instruction
 
@@ -41,8 +41,8 @@ class CameraDataManager:
 		Returns: "up" or "down" 
 		"""
 		if pixels_y < self.center_y:
-			tilt_instruction = "up"
-		elif pixels_y > self.center_y:
 			tilt_instruction = "down"
+		elif pixels_y > self.center_y:
+			tilt_instruction = "up"
 		
 		return tilt_instruction

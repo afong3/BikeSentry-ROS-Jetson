@@ -1,0 +1,7 @@
+<launch>
+  <!-- Launch file for the arduino-motor-controlller -->
+  <!-- MOTOR PAN -->
+    
+  <node name="serial_node" pkg="rosserial_arduino" type="serial_node.py" args="/dev/ttyUSB0"/>
+   
+</launch>

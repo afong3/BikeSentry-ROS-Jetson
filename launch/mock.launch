@@ -1,13 +1,11 @@
 <launch>
     <!-- Launch file for the mock run of the motors and detect net-->
-    <!-- MOTOR PAN -->
 
-    <node name="mock_motor_pan" pkg="bike_sentry" type="mock_motor_pan.py"/>
-    <!-- MOTOR TILT-->
-    <node name="mock_motor_tilt" pkg="bike_sentry" type="mock_motor_tilt.py"/>
-
+    <node name="motor_instructions" pkg="bike_sentry" type="motor_instructions.py"/>
+    
 	<!-- DETECTNET -->
 	<node name="mock_detectnet" pkg="bike_sentry" type="mock_detectnet.py"/>
-
+    
+    <include file="$(find bike_sentry)/launch/motor_controller.launch"/>
 
 </launch>
