@@ -1,16 +1,14 @@
 #include <ros.h>
 #include <std_msgs/Empty.h>
-#include <SentryMotorController.h>
+#include "SentryMotorController.h"
 
-ros::NodeHandle  node_handle;
-
-int pwm_pin_up_down= 1;
+int pwm_pin_up_down = 1;
 int direction_pin_up_down = 2; 
-int pwm_left_right = 3;
-int direction_left_right = 4;
+int pwm_pin_left_right = 3;
+int direction_pin_left_right = 4;
 
-int step_speed_up_down= 100;
-int step_speed_left_right= 100;
+int step_speed_up_down = 100;
+int step_speed_left_right = 100;
 
 
 SentryMotorController up_down_motor(step_speed_up_down, pwm_pin_up_down, direction_pin_up_down);
@@ -46,7 +44,7 @@ void stop_left_right_callback(const std_msgs::Empty& empty_msg)
     left_right_motor.stop();
   }
 
-
+ros::NodeHandle node_handle;
 ros::Subscriber<std_msgs::Empty> go_up_sub("go_up", &go_up_callback );
 ros::Subscriber<std_msgs::Empty> go_down_sub("go_down", &go_down_callback);
 ros::Subscriber<std_msgs::Empty> go_right_sub("go_left", &go_left_callback);
