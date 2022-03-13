@@ -11,17 +11,19 @@
 
 ros::NodeHandle node_handle;
 
-int pwm_pin_tilt = 1;
+int pwm_pin_tilt = 11;
 int direction_pin_tilt = 2; 
-int pwm_pin_pan = 3;
-int direction_pin_pan = 4;
+int pwm_pin_pan = 9;
+int direction_pin_pan = 8;
+int pan_enable_pin = 4;
+int tilt_enable_pin = 5;
 
 int step_speed_tilt = 100;
 int step_speed_pan = 100;
 
 
-SentryMotorController tilt_motor(step_speed_tilt, pwm_pin_tilt, direction_pin_tilt);
-SentryMotorController pan_motor(step_speed_pan, pwm_pin_pan, direction_pin_pan);
+SentryMotorController tilt_motor(step_speed_tilt, pwm_pin_tilt, direction_pin_tilt, tilt_enable_pin);
+SentryMotorController pan_motor(step_speed_pan, pwm_pin_pan, direction_pin_pan, pan_enable_pin);
 
 void go_up_callback(const std_msgs::Empty& empty_msg)
   {
@@ -38,25 +40,25 @@ void go_down_callback(const std_msgs::Empty& empty_msg)
 void go_left_callback(const std_msgs::Empty& empty_msg)
   {
     node_handle.loginfo("going left");
-    pan_motor.spin_cw();
+    pan_motor.spin_ccw();
   }
 
 void go_right_callback(const std_msgs::Empty& empty_msg)
   {
     node_handle.loginfo("going right");
-    pan_motor.spin_ccw();
+    pan_motor.spin_cw();
   }
   
 void stop_tilt_callback(const std_msgs::Empty& empty_msg)  
   {
     node_handle.loginfo("stopping tilt");
-    tilt_motor.stop();
+    tilt_motor.disable_motor();
   }
   
 void stop_pan_callback(const std_msgs::Empty& empty_msg)  
   {
     node_handle.loginfo("stopping pan");
-    pan_motor.stop();
+    pan_motor.disable_motor();
   }
 
 
@@ -69,6 +71,13 @@ ros::Subscriber<std_msgs::Empty> stop_pan_sub("stop_pan", &stop_pan_callback);
 
 void setup()
   { 
+    pinMode(pwm_pin_tilt, OUTPUT);
+    pinMode(direction_pin_tilt, OUTPUT);
+    pinMode(pwm_pin_pan, OUTPUT);
+    pinMode(direction_pin_pan, OUTPUT);
+    pinMode(tilt_enable_pin, OUTPUT);
+    pinMode(pan_enable_pin, OUTPUT);
+    
     node_handle.initNode();
     node_handle.subscribe(go_up_sub);
     node_handle.subscribe(go_down_sub);

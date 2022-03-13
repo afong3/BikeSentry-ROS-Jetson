@@ -17,3 +17,6 @@ Use /scripts to store all the libraries responsible for handling Audio, Camera, 
 2. open a new terminal tab and run the command below
 $roslaunch bike_sentry detectnet.ros1.launch input:=v4l2:///dev/video0 output:=display://0
 
+### To set up the arduino motor contoller node please refer to
+1. rosserial_arduino/Tutorials/Arduino IDE Setup
+2. run roslaunch motor_controller.launch

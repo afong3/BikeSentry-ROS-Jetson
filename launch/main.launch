@@ -1,14 +1,14 @@
 <launch>
 
     <!-- MOTOR PAN -->
-    <node name="motor_pan" pkg="bike_sentry" type="motor_pan.py"/>
     <!-- MOTOR TILT-->
-    <node name="motor_tilt" pkg="bike_sentry" type="motor_tilt.py"/>
+	<node name="motor_instructions" pkg="bike_sentry" type="motor_instructions.py"/>
 
 	<!-- DETECTNET -->
 	<include file="$(find bike_sentry)/launch/detectnet.launch">
 		<arg name="input" value="v4l2:///dev/video0"/>
 		<arg name="output" value="display://0"/>
 	</include>
-
+	
+	<include file="$(find bike_sentry)/launch/motor_controller.launch"/>
 </launch>

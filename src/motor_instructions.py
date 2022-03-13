@@ -32,6 +32,13 @@ class MotorInstructionHandler:
             self.left_pub.publish(msg)
         elif instr == "right":
             self.right_pub.publish(msg)
+        elif instr == "stop_pan":
+            self.stop_pan_pub.publish(msg)
+        elif instr == "stop_tilt":
+            self.stop_tilt_pub.publish(msg)
+        else:
+            self.stop_tilt_pub.publish(msg)
+            self.stop_pan_pub.publish(msg)
 
 
 CameraDataManager = CDM.CameraDataManager(1280, 720)
