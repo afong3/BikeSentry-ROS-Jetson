@@ -8,6 +8,7 @@ import rospkg
 rospack = rospkg.RosPack()
 pck_path = rospack.get_path("bike_sentry")
 
+SystemState = imp.load_source("bike_sentry.SystemState", pck_path + "/scripts/SystemState.py")
 CDM = imp.load_source("module.name", pck_path + "/scripts/CameraDataManager.py")
 
 
@@ -25,6 +26,13 @@ class MotorInstructionHandler:
 
     def send_instruction(self, instr):
         msg = Empty()
+
+        # We dont want motors to move when Tower has not detected a theft.
+        if not SystemState.in_sentry_mode():
+            self.stop_tilt_pub.publish(msg)
+            self.stop_pan_pub.publish(msg)
+            return
+
         if instr == "up":
             self.up_pub.publish(msg)
         elif instr == "down":

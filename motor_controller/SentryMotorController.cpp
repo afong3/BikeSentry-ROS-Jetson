@@ -1,6 +1,7 @@
 #include "SentryMotorController.h"
 
 #define motorInterfaceType 1
+#define MOTOR_SPEED 100
 
 SentryMotorController::SentryMotorController(int steps_per_second, int pwm_pin, int direction_pin, int enable_pin) 
   {
@@ -41,7 +42,7 @@ void SentryMotorController::spin_cw()
   {
     AccelStepper stepper = this->stepper;
     this->enable_motor();
-    stepper.setSpeed(50);
+    stepper.setSpeed(MOTOR_SPEED);
     stepper.runSpeed();
   }
 
@@ -49,7 +50,7 @@ void SentryMotorController::spin_ccw()
   {
     AccelStepper stepper = this->stepper;
     this->enable_motor();
-    stepper.setSpeed(-50);
+    stepper.setSpeed(-MOTOR_SPEED);
     stepper.runSpeed();
   }
 
