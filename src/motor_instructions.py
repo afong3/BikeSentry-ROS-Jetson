@@ -10,6 +10,7 @@ pck_path = rospack.get_path("bike_sentry")
 
 CDM = imp.load_source("module.name", pck_path + "/scripts/CameraDataManager.py")
 
+
 class MotorInstructionHandler:
     def __init__(self):
         pass
