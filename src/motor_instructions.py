@@ -1,10 +1,22 @@
 #!/usr/bin/python2.7
-
+from pickle import GLOBAL
+import RPi.GPIO as GPIO 
 import rospy
 from std_msgs.msg import Empty, Float32
 from CameraDataManager import CameraDataManager
-import SystemState
 
+
+INPUT_PIN = 18 # pin 12 on the real board
+
+def pin_setup():
+    # Pin Setup:
+    GPIO.setmode(GPIO.BCM)  # BCM pin-numbering scheme from Raspberry Pi
+    GPIO.setup(INPUT_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # set pin as an input pin
+
+def read_pin():
+    global PREV_VALUE
+    value = GPIO.input(INPUT_PIN)
+    return value # 1 or 0
 
 class MotorInstructionHandler:
     def __init__(self):
@@ -22,7 +34,7 @@ class MotorInstructionHandler:
         msg = Empty()
 
         # We dont want motors to move when Tower has not detected a theft.
-        if not SystemState.in_sentry_mode():
+        if read_pin() == 0:
             self.stop_tilt_pub.publish(msg)
             self.stop_pan_pub.publish(msg)
             return
@@ -71,6 +83,7 @@ def main():
     rospy.init_node("motor_intructions")
     motor.init_publishers()
     init_subscribers()
+    pin_setup()
     rospy.spin()
 
 
