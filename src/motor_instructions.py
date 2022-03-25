@@ -3,7 +3,7 @@ import rospy
 from std_msgs.msg import Empty, Float32, Int32
 from CameraDataManager import CameraDataManager
 
-STATE = 0
+SENTRY_MODE = 0
 
 class MotorInstructionHandler:
     def __init__(self):
@@ -21,7 +21,7 @@ class MotorInstructionHandler:
         msg = Empty()
 
         # We dont want motors to move when Tower has not detected a theft.
-        if STATE == 0:
+        if SENTRY_MODE == 0:
             self.stop_tilt_pub.publish(msg)
             self.stop_pan_pub.publish(msg)
             return
@@ -53,8 +53,8 @@ def init_subscribers():
     rospy.Subscriber("state", Int32, state_callback)
 
 def state_callback(state):
-    global STATE
-    STATE = state.data
+    global SENTRY_MODE
+    SENTRY_MODE = state.data
 
 def pan_callback(pixels_x):
     x = int(pixels_x.data)
