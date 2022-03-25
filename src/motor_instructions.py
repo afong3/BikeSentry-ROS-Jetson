@@ -1,22 +1,9 @@
 #!/usr/bin/python2.7
-from pickle import GLOBAL
-import RPi.GPIO as GPIO 
 import rospy
 from std_msgs.msg import Empty, Float32
 from CameraDataManager import CameraDataManager
 
-
-INPUT_PIN = 18 # pin 12 on the real board
-
-def pin_setup():
-    # Pin Setup:
-    GPIO.setmode(GPIO.BCM)  # BCM pin-numbering scheme from Raspberry Pi
-    GPIO.setup(INPUT_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # set pin as an input pin
-
-def read_pin():
-    global PREV_VALUE
-    value = GPIO.input(INPUT_PIN)
-    return value # 1 or 0
+STATE = 0
 
 class MotorInstructionHandler:
     def __init__(self):
@@ -63,7 +50,11 @@ motor = MotorInstructionHandler()
 def init_subscribers():
     rospy.Subscriber("x_center", Float32, pan_callback)
     rospy.Subscriber("y_center", Float32, tilt_callback)
+    rospy.Subscriber("state", Int32, state_callback)
 
+def state_callback(state):
+    rospy.loginfo(state)
+    rospy.loginfo("Is working")
 
 def pan_callback(pixels_x):
     x = int(pixels_x.data)
