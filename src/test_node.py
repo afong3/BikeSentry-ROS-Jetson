@@ -11,7 +11,7 @@ def main(pub, rate):
 
     # Pin Setup:
     GPIO.setmode(GPIO.BCM)  # BCM pin-numbering scheme from Raspberry Pi
-    GPIO.setup(input_pin, GPIO.IN)  # set pin as an input pin
+    GPIO.setup(input_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # set pin as an input pin
     print("Starting demo now! Press CTRL+C to exit")
     try:
         while True:
@@ -25,7 +25,7 @@ def main(pub, rate):
                                                            value_str))
                 prev_value = value
             example_msg = 0.01
-            rospy.loginfo(example_msg)
+            rospy.loginfo(value)
             pub.publish(example_msg)
             rate.sleep()
     finally:
@@ -35,7 +35,7 @@ def publisher():
   
     pub = rospy.Publisher("example_topic", Float32, queue_size=10)
     rospy.init_node("example_name", anonymous=True)
-    rate = rospy.Rate(1)
+    rate = rospy.Rate(10)
     main(pub, rate)
 
 
