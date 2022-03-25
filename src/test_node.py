@@ -33,7 +33,7 @@ def main(pub, rate):
 
 def publisher():
   
-    pub = rospy.Publisher("example_topic", Float32, queue_size=10)
+    pub = rospy.Publisher("test_node", Float32, queue_size=10)
     rospy.init_node("example_name", anonymous=True)
     rate = rospy.Rate(10)
     main(pub, rate)
