@@ -2,14 +2,8 @@
 
 import rospy
 from std_msgs.msg import Empty, Float32
-import imp
-import rospkg
-
-rospack = rospkg.RosPack()
-pck_path = rospack.get_path("bike_sentry")
-
-SystemState = imp.load_source("bike_sentry.SystemState", pck_path + "/scripts/SystemState.py")
-CDM = imp.load_source("module.name", pck_path + "/scripts/CameraDataManager.py")
+from CameraDataManager import CameraDataManager
+import SystemState
 
 
 class MotorInstructionHandler:
@@ -50,8 +44,8 @@ class MotorInstructionHandler:
             self.stop_pan_pub.publish(msg)
 
 
-CameraDataManager = CDM.CameraDataManager(1280, 720)
-Motor = MotorInstructionHandler()
+cameraDataManager = CameraDataManager(1280, 720)
+motor = MotorInstructionHandler()
 
 
 def init_subscribers():
@@ -61,21 +55,21 @@ def init_subscribers():
 
 def pan_callback(pixels_x):
     x = int(pixels_x.data)
-    instr = CameraDataManager.create_motor_instructions_pan(x)
-    Motor.send_instruction(instr)
+    instr = cameraDataManager.create_motor_instructions_pan(x)
+    motor.send_instruction(instr)
     rospy.loginfo("x_center: {}   direction:{}".format(x, instr))
 
 
 def tilt_callback(pixels_y):
     y = int(pixels_y.data)
-    instr = CameraDataManager.create_motor_instructions_tilt(y)
-    Motor.send_instruction(instr)
+    instr = cameraDataManager.create_motor_instructions_tilt(y)
+    motor.send_instruction(instr)
     rospy.loginfo("y_center: {}   direction:{}".format(y, instr))
 
 
 def main():
     rospy.init_node("motor_intructions")
-    Motor.init_publishers()
+    motor.init_publishers()
     init_subscribers()
     rospy.spin()
 

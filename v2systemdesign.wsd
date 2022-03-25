@@ -1,0 +1,27 @@
+@startuml "JetsonV1 overview no Shooting"
+
+rectangle "**Camera Detect net**" {
+    (node_detectnet)
+    (node_video_output)
+    (node_video_source)
+    (ros_compat)
+    (image_converter)
+}
+node_detectnet ----> (motor_instructions) : "/y_center_pub, \n /x_center_pub"
+
+
+rectangle "**Arduino Nano**" {
+    (motor_controller) 
+    (SentryMotorController)
+}
+(MotorInstructionHandler) <-> motor_instructions
+(CameraDataManager) <-> motor_instructions 
+
+motor_instructions ----> motor_controller : "**Serial Data** \n /go_up, \n /go_down, \n /go_left,\n /go_right,\n /stop_tilt,\n /stop_pan"
+
+motor_pan <- SentryMotorController 
+motor_tilt <- SentryMotorController
+motor_controller <-> SentryMotorController
+
+
+@enduml
