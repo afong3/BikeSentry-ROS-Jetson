@@ -1,16 +1,9 @@
 #!/usr/bin/python2.7
-
 import rospy
-from std_msgs.msg import Empty, Float32
-import imp
-import rospkg
+from std_msgs.msg import Empty, Float32, Int32
+from CameraDataManager import CameraDataManager
 
-rospack = rospkg.RosPack()
-pck_path = rospack.get_path("bike_sentry")
-
-SystemState = imp.load_source("bike_sentry.SystemState", pck_path + "/scripts/SystemState.py")
-CDM = imp.load_source("module.name", pck_path + "/scripts/CameraDataManager.py")
-
+SENTRY_MODE = 0
 
 class MotorInstructionHandler:
     def __init__(self):
@@ -28,7 +21,7 @@ class MotorInstructionHandler:
         msg = Empty()
 
         # We dont want motors to move when Tower has not detected a theft.
-        if not SystemState.in_sentry_mode():
+        if SENTRY_MODE == 0:
             self.stop_tilt_pub.publish(msg)
             self.stop_pan_pub.publish(msg)
             return
@@ -50,32 +43,36 @@ class MotorInstructionHandler:
             self.stop_pan_pub.publish(msg)
 
 
-CameraDataManager = CDM.CameraDataManager(1280, 720)
-Motor = MotorInstructionHandler()
+cameraDataManager = CameraDataManager(1280, 720)
+motor = MotorInstructionHandler()
 
 
 def init_subscribers():
     rospy.Subscriber("x_center", Float32, pan_callback)
     rospy.Subscriber("y_center", Float32, tilt_callback)
+    rospy.Subscriber("state", Int32, state_callback)
 
+def state_callback(state):
+    global SENTRY_MODE
+    SENTRY_MODE = state.data
 
 def pan_callback(pixels_x):
     x = int(pixels_x.data)
-    instr = CameraDataManager.create_motor_instructions_pan(x)
-    Motor.send_instruction(instr)
+    instr = cameraDataManager.create_motor_instructions_pan(x)
+    motor.send_instruction(instr)
     rospy.loginfo("x_center: {}   direction:{}".format(x, instr))
 
 
 def tilt_callback(pixels_y):
     y = int(pixels_y.data)
-    instr = CameraDataManager.create_motor_instructions_tilt(y)
-    Motor.send_instruction(instr)
+    instr = cameraDataManager.create_motor_instructions_tilt(y)
+    motor.send_instruction(instr)
     rospy.loginfo("y_center: {}   direction:{}".format(y, instr))
 
 
 def main():
     rospy.init_node("motor_intructions")
-    Motor.init_publishers()
+    motor.init_publishers()
     init_subscribers()
     rospy.spin()
 
