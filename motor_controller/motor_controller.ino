@@ -41,13 +41,13 @@ WheelMotorController ball_loader(loader_speed, loader_enable_a_pin, loader_in_1_
 void go_up_callback(const std_msgs::Empty& empty_msg)
   {
     node_handle.loginfo("go up");
-    tilt_motor.spin_cw();
+    tilt_motor.spin_ccw();
   }
 
 void go_down_callback(const std_msgs::Empty& empty_msg) 
   {
     node_handle.loginfo("go down");
-    tilt_motor.spin_ccw();
+    tilt_motor.spin_cw();
   }
 
 void go_left_callback(const std_msgs::Empty& empty_msg)
@@ -77,7 +77,7 @@ void stop_pan_callback(const std_msgs::Empty& empty_msg)
 void start_flywheel_callback(const std_msgs::Empty& empty_msg)  
   {
     node_handle.loginfo("start flywheel");
-    flywheels.start_spin()
+    flywheels.start_spin();
   }
 
 void stop_flywheel_callback(const std_msgs::Empty& empty_msg)  
@@ -108,7 +108,7 @@ ros::Subscriber<std_msgs::Empty> stop_pan_sub("stop_pan", &stop_pan_callback);
 ros::Subscriber<std_msgs::Empty> start_flywheel_spin_sub("start_flywheel", &start_flywheel_callback);
 ros::Subscriber<std_msgs::Empty> stop_flywheel_spin_sub("stop_flywheel", &stop_flywheel_callback);
 ros::Subscriber<std_msgs::Empty> start_loader_spin_sub("start_loader", &start_loader_callback);
-ros::Subscriber<std_msgs::Empty> start_loader_spin_sub("stop_loader", &stop_loader_callback);
+ros::Subscriber<std_msgs::Empty> stop_loader_spin_sub("stop_loader", &stop_loader_callback);
 
 void setup()
   { 

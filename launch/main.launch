@@ -3,7 +3,7 @@
     <!-- MOTOR PAN -->
     <!-- MOTOR TILT-->
 	<node name="motor_instructions" pkg="bike_sentry" type="motor_instructions.py"/>
-
+	<node name="system_state" pkg="bike_sentry" type="system_state.py"/>
 	<!-- DETECTNET -->
 	<include file="$(find bike_sentry)/launch/detectnet.launch">
 		<arg name="input" value="v4l2:///dev/video0"/>
