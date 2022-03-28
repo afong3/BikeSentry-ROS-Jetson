@@ -16,6 +16,10 @@ class MotorInstructionHandler:
         self.right_pub = rospy.Publisher("go_right", Empty, queue_size=10)
         self.stop_tilt_pub = rospy.Publisher("stop_tilt", Empty, queue_size=10)
         self.stop_pan_pub = rospy.Publisher("stop_pan", Empty, queue_size=10)
+        self.start_flywheel_spin_pub = rospy.Publisher("start_flywheel", Empty, queue_size=10)
+        self.stop_flywheel_spin_pub = rospy.Publisher("stop_flywheel", Empty, queue_size=10)
+        self.start_loader_spin_pub = rospy.Publisher("start_loader", Empty, queue_size=10)
+        self.stop_loader_spin_pub = rospy.Publisher("stop_loader", Empty, queue_size=10)
 
     def send_instruction(self, instr):
         msg = Empty()
@@ -24,7 +28,16 @@ class MotorInstructionHandler:
         if SENTRY_MODE == 0:
             self.stop_tilt_pub.publish(msg)
             self.stop_pan_pub.publish(msg)
+            self.stop_flywheel_spin_pub.publish(msg)
             return
+        
+        self.start_flywheel_spin_pub.publish(msg)
+
+        if instr == "stop_pan":
+            self.start_loader_spin_pub.publish(msg)
+            self.stop_pan_pub.publish(msg)
+        else:
+            self.stop_loader_spin_pub.publish(msg)
 
         if instr == "up":
             self.up_pub.publish(msg)
@@ -34,13 +47,10 @@ class MotorInstructionHandler:
             self.left_pub.publish(msg)
         elif instr == "right":
             self.right_pub.publish(msg)
-        elif instr == "stop_pan":
-            self.stop_pan_pub.publish(msg)
         elif instr == "stop_tilt":
             self.stop_tilt_pub.publish(msg)
-        else:
-            self.stop_tilt_pub.publish(msg)
-            self.stop_pan_pub.publish(msg)
+
+    
 
 
 cameraDataManager = CameraDataManager(1280, 720)

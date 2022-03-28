@@ -10,7 +10,7 @@ class CameraDataManager:
 		# AKA where the camera wants to center itself on in relation to the detected person.
     # Positive values mean up and right, negative values mean down and left.
     _X_OFFSET = 0
-    _Y_OFFSET = 100
+    _Y_OFFSET = 0
 
     def __init__(self, image_width, image_height):
         self.target_x, self.target_y = self.where_to_aim(image_width, image_height)

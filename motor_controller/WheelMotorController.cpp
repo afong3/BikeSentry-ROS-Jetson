@@ -23,9 +23,13 @@ void WheelMotorController::init_motor_pins()
 void WheelMotorController::start_spin()
   {
     // Write the logic to start spining a motor
+    digitalWrite(this->in_1_pin, HIGH);
+    digitalWrite(this->in_2_pin, LOW);
+    analogWrite(this->enable_a_pin, this->speed);
   }
 
 void WheelMotorController::stop_spin()
   {
     // Write the logic to stop spining a motor
+    analogWrite(this->enable_a_pin, 0);
   }

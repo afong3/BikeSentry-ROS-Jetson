@@ -22,15 +22,15 @@ int pan_enable_pin = 12;
 int step_speed_tilt = 100;
 int step_speed_pan = 100;
 
-int flywheels_speed = 100;
-int flywheels_enable_a_pin = 10;
-int flywheels_in_1_pin = 13;
-int flywheels_in_2_pin = 14;
+int flywheels_speed = 255;
+int flywheels_enable_a_pin = 5; 
+int flywheels_in_1_pin = 4;
+int flywheels_in_2_pin = 3;
 
-int loader_speed = 100;
-int loader_enable_a_pin = 10;
-int loader_in_1_pin = 13;
-int loader_in_2_pin = 14;
+int loader_speed = 110;
+int loader_enable_a_pin = 9;
+int loader_in_1_pin = 2;
+int loader_in_2_pin = 13;
 
 
 SentryMotorController tilt_motor(step_speed_tilt, pwm_pin_tilt, direction_pin_tilt, tilt_enable_pin);
