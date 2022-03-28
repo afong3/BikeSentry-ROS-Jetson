@@ -27,7 +27,7 @@ int flywheels_enable_a_pin = 5;
 int flywheels_in_1_pin = 4;
 int flywheels_in_2_pin = 3;
 
-int loader_speed = 110;
+int loader_speed = 255;
 int loader_enable_a_pin = 9;
 int loader_in_1_pin = 2;
 int loader_in_2_pin = 13;
