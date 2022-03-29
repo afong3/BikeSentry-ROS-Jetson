@@ -3,7 +3,7 @@
 # Python2.7
 # Refer to Confluence directory: StopBikeTheft/Designs/ROS Design/CameraDataManager
 
-
+#Image origin is top left corner of image  
 class CameraDataManager:
 
 		# Offset from the center point to create the target point. 
@@ -39,7 +39,7 @@ class CameraDataManager:
         It will be assumed that a person is inside the frame.
         """
         stop_zone_width = 100
-        stop_zone_height = 50
+        stop_zone_height = 720
 
         self.stop_zone_low_x = self.target_x - stop_zone_width / 2
         self.stop_zone_high_x = self.target_x + stop_zone_width / 2
@@ -66,10 +66,13 @@ class CameraDataManager:
         Description: Creates the tilt motor instructions
         Returns: "up" or "down"
         """
+        # NOTE THAT this is hard to wrape your head around
+        # The low and high rever to integer values NOT space!
+        # This is because the origin is in the TOP left of the image!
         if pixels_y < self.stop_zone_low_y:
-            tilt_instruction = "down"
-        elif pixels_y > self.stop_zone_high_y:
             tilt_instruction = "up"
+        elif pixels_y > self.stop_zone_high_y:
+            tilt_instruction = "down"
         else:
             tilt_instruction = "stop_tilt"
 
