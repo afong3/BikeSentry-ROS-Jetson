@@ -18,8 +18,9 @@ class MotorInstructionHandler:
         self.stop_pan_pub = rospy.Publisher("stop_pan", Empty, queue_size=10)
         self.start_flywheel_spin_pub = rospy.Publisher("start_flywheel", Empty, queue_size=10)
         self.stop_flywheel_spin_pub = rospy.Publisher("stop_flywheel", Empty, queue_size=10)
-        self.start_loader_spin_pub = rospy.Publisher("start_loader", Empty, queue_size=10)
-        self.stop_loader_spin_pub = rospy.Publisher("stop_loader", Empty, queue_size=10)
+        #Servo UP means balls will shoot
+        self.servo_up_pub = rospy.Publisher("servo_up", Empty, queue_size=10)
+        self.servo_down_pub = rospy.Publisher("servo_down", Empty, queue_size=10)
 
     def send_instruction(self, instr):
         msg = Empty()
@@ -34,11 +35,13 @@ class MotorInstructionHandler:
         self.start_flywheel_spin_pub.publish(msg)
 
         if instr == "stop_pan":
-            self.start_loader_spin_pub.publish(msg)
+            #Shoot balls
+            self.servo_up_pub.publish(msg)
             self.stop_pan_pub.publish(msg)
         else:
-            self.stop_loader_spin_pub.publish(msg)
-
+            # Stop shooting
+            self.servo_down_pub.publish(msg)
+            
         if instr == "up":
             self.up_pub.publish(msg)
         elif instr == "down":
