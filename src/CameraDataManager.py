@@ -38,8 +38,8 @@ class CameraDataManager:
         Inside of the stop zone the motors will be told to stop moving.
         It will be assumed that a person is inside the frame.
         """
-        stop_zone_width = 100
-        stop_zone_height = 50
+        stop_zone_width = 350
+        stop_zone_height = 720
 
         self.stop_zone_low_x = self.target_x - stop_zone_width / 2
         self.stop_zone_high_x = self.target_x + stop_zone_width / 2

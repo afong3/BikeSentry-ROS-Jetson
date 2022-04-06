@@ -29,8 +29,8 @@ int flywheels_in_1_pin = 4;
 int flywheels_in_2_pin = 3;
 
 int servo_pin = 13;
-int pos_high = 80;
-int pos_low = 180;
+int pos_high = 180;
+int pos_low = 120;
 
 
 SentryMotorController tilt_motor(step_speed_tilt, pwm_pin_tilt, direction_pin_tilt, tilt_enable_pin);
@@ -124,6 +124,7 @@ ros::Subscriber<std_msgs::Empty> servo_down_sub("servo_down", &servo_down_callba
 void setup()
   { 
     servo_ball_loader.attach(servo_pin);
+    servo_ball_loader.write(pos_low);
     pinMode(pwm_pin_tilt, OUTPUT);
     pinMode(direction_pin_tilt, OUTPUT);
     pinMode(pwm_pin_pan, OUTPUT);
