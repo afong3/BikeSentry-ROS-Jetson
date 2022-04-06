@@ -36,6 +36,7 @@ class MotorInstructionHandler:
         # While a ball is shooting stop sending instructions now while it shoots.
         # See the done_shot callback which flips this variable.
         if SHOOT_IN_PROGESS:
+            rospy.loginfo("Skipping instructions")
             # NEVER send instructions while it shooting!
             return
         
@@ -47,6 +48,7 @@ class MotorInstructionHandler:
 
         if instr == "stop_pan":
             SHOOT_IN_PROGESS = True
+            rospy.loginfo("Shooting starting")
             #Shoot 1 ball
             self.servo_shoot_pub.publish(msg)
             self.stop_pan_pub.publish(msg)
@@ -70,6 +72,7 @@ cameraDataManager = CameraDataManager(1280, 720)
 motor = MotorInstructionHandler()
 
 def done_shot_callback(data):
+    rospy.loginfo("Shooting finished")
     global SHOT_IN_PROGESS
     SHOT_IN_PROGESS = False
 
@@ -87,7 +90,7 @@ def pan_callback(pixels_x):
     x = int(pixels_x.data)
     instr = cameraDataManager.create_motor_instructions_pan(x)
     motor.send_instruction(instr)
-    rospy.loginfo("x_center: {}   direction:{}".format(x, instr))
+    #rospy.loginfo("x_center: {}   direction:{}".format(x, instr))
 
 
 def tilt_callback(pixels_y):
