@@ -37,8 +37,7 @@ SentryMotorController tilt_motor(step_speed_tilt, pwm_pin_tilt, direction_pin_ti
 SentryMotorController pan_motor(step_speed_pan, pwm_pin_pan, direction_pin_pan, pan_enable_pin);
 WheelMotorController flywheels(flywheels_speed, flywheels_enable_a_pin, flywheels_in_1_pin, flywheels_in_2_pin);
 Servo servo_ball_loader;
-
-ros::Publisher done_shot_pub = node_handle.advertise<std_msgs::Empty>("done_shot", 10);
+rop::Publisher done_shot_pub;
 
 void go_up_callback(const std_msgs::Empty& empty_msg)
   {
@@ -90,7 +89,7 @@ void stop_flywheel_callback(const std_msgs::Empty& empty_msg)
 
 void servo_shoot_callback(const std_msgs::Empty& empty_msg)
   {
-    std_msgs::Empty msg;
+    const std_msgs::Empty& msg
     node_handle.loginfo("servo shooting");
     /*In here add some code to shoot one ball! Hopefully this works. Good luck Adam!*/
     servo_ball_loader.write(pos_high);
@@ -132,6 +131,7 @@ void setup()
     node_handle.subscribe(start_flywheel_spin_sub);
     node_handle.subscribe(stop_flywheel_spin_sub);
     node_handle.subscribe(servo_shoot_sub);
+    done_shot_pub = node_handle.advertise<std_msgs::Empty>("done_shot", 10);
   }
 
 void loop()
