@@ -38,15 +38,7 @@ SentryMotorController pan_motor(step_speed_pan, pwm_pin_pan, direction_pin_pan, 
 WheelMotorController flywheels(flywheels_speed, flywheels_enable_a_pin, flywheels_in_1_pin, flywheels_in_2_pin);
 Servo servo_ball_loader;
 
-void servo_up() 
-  {
-    servo_ball_loader.write(pos_high);
-  }
-
-void servo_down() 
-  {
-    servo_ball_loader.write(pos_low);
-  }
+ros::Publisher done_shot_pub = node_handle.advertise<std_msgs::Empty>("done_shot", 10);
 
 void go_up_callback(const std_msgs::Empty& empty_msg)
   {
@@ -96,18 +88,17 @@ void stop_flywheel_callback(const std_msgs::Empty& empty_msg)
     flywheels.stop_spin();
   }
 
-void servo_up_callback(const std_msgs::Empty& empty_msg)
+void servo_shoot_callback(const std_msgs::Empty& empty_msg)
   {
-    node_handle.loginfo("servo up");
-    servo_up();
+    std_msgs::Empty msg;
+    node_handle.loginfo("servo shooting");
+    /*In here add some code to shoot one ball! Hopefully this works. Good luck Adam!*/
+    servo_ball_loader.write(pos_high);
+    delay(500);
+    servo_ball_loader.write(pos_log);
+    delay(500);
+    done_shot_pub.publish(msg);
   }
-
-void servo_down_callback(const std_msgs::Empty& empty_msg)
-  {
-    node_handle.loginfo("servo down");
-    servo_down();
-  }
-
 
 ros::Subscriber<std_msgs::Empty> go_up_sub("go_up", &go_up_callback );
 ros::Subscriber<std_msgs::Empty> go_down_sub("go_down", &go_down_callback);
@@ -117,8 +108,7 @@ ros::Subscriber<std_msgs::Empty> stop_tilt_sub("stop_tilt", &stop_tilt_callback)
 ros::Subscriber<std_msgs::Empty> stop_pan_sub("stop_pan", &stop_pan_callback);
 ros::Subscriber<std_msgs::Empty> start_flywheel_spin_sub("start_flywheel", &start_flywheel_callback);
 ros::Subscriber<std_msgs::Empty> stop_flywheel_spin_sub("stop_flywheel", &stop_flywheel_callback);
-ros::Subscriber<std_msgs::Empty> servo_up_sub("servo_up", &servo_up_callback);
-ros::Subscriber<std_msgs::Empty> servo_down_sub("servo_down", &servo_down_callback);
+ros::Subscriber<std_msgs::Empty> servo_shoot_sub("servo_shoot", &servo_shoot_callback);
 
 
 void setup()
@@ -141,8 +131,7 @@ void setup()
     node_handle.subscribe(stop_pan_sub);
     node_handle.subscribe(start_flywheel_spin_sub);
     node_handle.subscribe(stop_flywheel_spin_sub);
-    node_handle.subscribe(servo_up_sub);
-    node_handle.subscribe(servo_down_sub);
+    node_handle.subscribe(servo_shoot_sub);
   }
 
 void loop()
