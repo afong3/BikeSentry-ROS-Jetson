@@ -1,6 +1,6 @@
 #!/usr/bin/python2.7
 import rospy
-from std_msgs.msg import Empty, Float32, Int32
+from std_msgs.msg import Empty, Float32, Int32, Float64
 from CameraDataManager import CameraDataManager
 
 SENTRY_MODE = 0
@@ -69,7 +69,7 @@ class MotorInstructionHandler:
 cameraDataManager = CameraDataManager(1280, 720)
 motor = MotorInstructionHandler()
 
-def done_shot_callback():
+def done_shot_callback(data):
     global SHOT_IN_PROGESS
     SHOT_IN_PROGESS = False
 
@@ -77,7 +77,7 @@ def init_subscribers():
     rospy.Subscriber("x_center", Float32, pan_callback)
     rospy.Subscriber("y_center", Float32, tilt_callback)
     rospy.Subscriber("state", Int32, state_callback)
-    rospy.Subscriber("done_shot", Empty, done_shot_callback)
+    rospy.Subscriber("done_shot", Float64, done_shot_callback)
 
 def state_callback(state):
     global SENTRY_MODE
