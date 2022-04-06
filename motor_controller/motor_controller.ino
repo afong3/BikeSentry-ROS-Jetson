@@ -10,6 +10,7 @@
 #include "SentryMotorController.h"
 #include "WheelMotorController.h"
 #include <Servo.h>
+#include <std_msgs/Float64.h>
 
 ros::NodeHandle node_handle;
 
@@ -32,13 +33,15 @@ int servo_pin = 13;
 int pos_high = 180;
 int pos_low = 120;
 
+float MESSAGE_FLOAT = 0.0;
 
 SentryMotorController tilt_motor(step_speed_tilt, pwm_pin_tilt, direction_pin_tilt, tilt_enable_pin);
 SentryMotorController pan_motor(step_speed_pan, pwm_pin_pan, direction_pin_pan, pan_enable_pin);
 WheelMotorController flywheels(flywheels_speed, flywheels_enable_a_pin, flywheels_in_1_pin, flywheels_in_2_pin);
 Servo servo_ball_loader;
 std_msgs::Empty GLOBAL_EMPTY_MSG;
-ros::Publisher done_shot_pub("done_shot", &GLOBAL_EMPTY_MSG);
+std_msgs::Float64 fl;
+ros::Publisher done_shot_pub("done_shot", &fl);
 
 void go_up_callback(const std_msgs::Empty& empty_msg)
   {
@@ -91,12 +94,13 @@ void stop_flywheel_callback(const std_msgs::Empty& empty_msg)
 void servo_shoot_callback(const std_msgs::Empty& empty_msg)
   {
     node_handle.loginfo("servo shooting");
+    fl.data = MESSAGE_FLOAT;
     /*In here add some code to shoot one ball! Hopefully this works. Good luck Adam!*/
     servo_ball_loader.write(pos_high);
     delay(500);
-    servo_ball_loader.write(pos_log);
+    servo_ball_loader.write(pos_low);
     delay(500);
-    done_shot_pub.publish(GLOBAL_EMPTY_MSG);
+    done_shot_pub.publish(&fl);
   }
 
 ros::Subscriber<std_msgs::Empty> go_up_sub("go_up", &go_up_callback );
